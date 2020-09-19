@@ -6,6 +6,13 @@ import datetime as dt
 import pandas as pd
 from bs4 import BeautifulSoup
 from webbot import Browser
+from selenium import webdriver
+
+driver = webdriver.Chrome(r'C:\Program Files\Google\Chrome\Application\chromedriver.exe')
+
+option = webdriver.ChromeOptions()
+option.binary_location=r'C:\Program Files\Google\Chrome\Application\chrome.exe' 
+
 
 #tao se la come doblada
 # - - - - - - - - - - Set-up - - - - - - - - - -

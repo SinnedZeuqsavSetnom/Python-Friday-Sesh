@@ -20,3 +20,7 @@ db = pd.DataFrame(columns=["anime",
                            "col3"])
 link_base = 'https://myanimelist.net/'
 web = Browser()
+web.go_to(url_pubmed)
+time.sleep(time_loadsearch)
+content = web.get_page_source()
+soup = BeautifulSoup(content, 'html.parser')

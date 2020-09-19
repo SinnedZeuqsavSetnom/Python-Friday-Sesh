@@ -46,7 +46,8 @@ for anime in range(0,19):
     time.sleep(time_load_article)
     anime_content = web.get_page_source()
     anime_soup = BeautifulSoup(anime_content, 'html.parser')
-    anime_theme_list = []
+    anime_op_list = []
+    anime_ed_list = []
     # opening/ending theme
     for song_list in anime_soup.find_all("div", {"class": "opnening"}):
         for song in song_list.find_all("span"):

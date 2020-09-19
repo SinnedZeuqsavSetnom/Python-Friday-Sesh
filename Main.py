@@ -11,7 +11,7 @@ from selenium import webdriver
 driver = webdriver.Chrome(r'C:\Program Files\Google\Chrome\Application\chromedriver.exe')
 
 option = webdriver.ChromeOptions()
-option.binary_location=r'C:\Program Files\Google\Chrome\Application\chrome.exe' 
+option.binary_location=r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 
 
 #tao se la come doblada
@@ -21,10 +21,10 @@ time_load_search = 3
 time_load_article = 2
 date_today = dt.date.today()
 # data frame & browser
-db = pd.DataFrame(columns=["anime",
-                           "col1",
-                           "col2",
-                           "col3"])
+db = pd.DataFrame(columns=["anime_title",
+                           "anime_link",
+                           "anime_op_list",
+                           "anime_ed_list"])
 link_base = 'https://myanimelist.net/'
 
 
@@ -36,7 +36,30 @@ content = web.get_page_source()
 soup = BeautifulSoup(content, 'html.parser')
 
 ranking_lists = soup.find_all("li", {"class": "ranking-unit"})
-print(ranking_lists[0])
 
-for position in range(0,19):
-    print(ranking_lists[position].find("a", {"class": "title"}).getText())
+for anime in range(0,19):
+    # title, link
+    anime_title = ranking_lists[anime].find("a", {"class": "title"}).getText()
+    anime_link = ranking_lists[anime].find("a", {"class": "title"})["href"]
+    # - - - anime page
+    web.go_to(anime_link)
+    time.sleep(time_load_article)
+    anime_content = web.get_page_source()
+    anime_soup = BeautifulSoup(anime_content, 'html.parser')
+    anime_theme_list = []
+    # opening/ending theme
+    for song_list in anime_soup.find_all("div", {"class": "opnening"}):
+        for song in song_list.find_all("span"):
+            song_cleaned = re.sub("^#\d{1,2}:\s|\s\([\da-zA-Z,\s\-]+\)$","",song.getText())
+            anime_op_list.append(song_cleaned)
+    for song_list in anime_soup.find_all("div", {"class": "ending"}):
+        for song in song_list.find_all("span"):
+            song_cleaned = re.sub("^#\d{1,2}:\s|\s\([\da-zA-Z,\s\-]+\)$","",song.getText())
+            anime_ed_list.append(song_cleaned)
+    # append to db
+    db = db.append(pd.Series([anime_title,
+                              anime_link,
+                              ", ".join(anime_op_list),
+                              ", ".join(anime_ed_list)],
+                             index=db.columns), ignore_index=True)
+

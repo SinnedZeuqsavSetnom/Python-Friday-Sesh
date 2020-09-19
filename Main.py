@@ -19,8 +19,14 @@ db = pd.DataFrame(columns=["anime",
                            "col2",
                            "col3"])
 link_base = 'https://myanimelist.net/'
+
+
+# - - - - - - - - - -  - - - - - - - - - -
 web = Browser()
-web.go_to(url_pubmed)
+web.go_to(link_base)
 time.sleep(time_loadsearch)
 content = web.get_page_source()
 soup = BeautifulSoup(content, 'html.parser')
+
+ranking_lists = soup.find_all("li", {"class": "ranking-unit"})
+print(ranking_lists[0])

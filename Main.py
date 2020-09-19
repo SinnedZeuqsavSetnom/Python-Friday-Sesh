@@ -21,7 +21,7 @@ db = pd.DataFrame(columns=["anime",
 link_base = 'https://myanimelist.net/'
 
 
-# - - - - - - - - - -  - - - - - - - - - -
+# - - - - - - - - - - Webbot Navigation - - - - - - - - - -
 web = Browser()
 web.go_to(link_base)
 time.sleep(time_load_search)

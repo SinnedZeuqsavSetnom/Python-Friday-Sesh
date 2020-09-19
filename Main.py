@@ -7,7 +7,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from webbot import Browser
 
-
+#tao se la come doblada
 # - - - - - - - - - - Set-up - - - - - - - - - -
 time_start = time.time()
 time_load_search = 3

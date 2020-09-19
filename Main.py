@@ -24,7 +24,7 @@ link_base = 'https://myanimelist.net/'
 # - - - - - - - - - -  - - - - - - - - - -
 web = Browser()
 web.go_to(link_base)
-time.sleep(time_loadsearch)
+time.sleep(time_load_search)
 content = web.get_page_source()
 soup = BeautifulSoup(content, 'html.parser')
 

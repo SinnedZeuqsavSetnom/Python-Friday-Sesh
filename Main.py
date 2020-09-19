@@ -37,3 +37,6 @@ soup = BeautifulSoup(content, 'html.parser')
 
 ranking_lists = soup.find_all("li", {"class": "ranking-unit"})
 print(ranking_lists[0])
+
+for position in range(0,19):
+    print(ranking_lists[position].find("a", {"class": "title"}).getText())

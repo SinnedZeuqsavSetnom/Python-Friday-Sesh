@@ -18,4 +18,5 @@ db = pd.DataFrame(columns=["anime",
                            "col1",
                            "col2",
                            "col3"])
+link_base = 'https://myanimelist.net/'
 web = Browser()

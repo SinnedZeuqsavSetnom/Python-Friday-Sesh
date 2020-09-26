@@ -27,8 +27,8 @@ link_base = 'https://myanimelist.net/topanime.php?type=airing'
 web = Browser()
 web.go_to(link_base)
 time.sleep(time_load_search)
-content = web.get_page_source()
-soup = BeautifulSoup(content, 'html.parser')
+content = web.get_page_source() #Saca la código fuente de la página
+soup = BeautifulSoup(content, 'html.parser') #Acá le defino a soup que lo que estoy viendo es un HTML
 
 ranking_lists = soup.find_all("tr", {"class": "ranking-list"})
 

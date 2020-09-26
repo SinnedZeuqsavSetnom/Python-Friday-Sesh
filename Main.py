@@ -31,7 +31,7 @@ soup = BeautifulSoup(content, 'html.parser')
 
 ranking_lists = soup.find_all("tr", {"class": "ranking-list"})
 
-for anime in ranking_lists:
+for anime in ranking_lists[0:10]:
     # title, link
     anime_title = anime.find("div", {"class": "di-ib"}).getText()
     anime_link = anime.find("div", {"class": "di-ib"}).find("a")["href"]

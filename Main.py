@@ -58,3 +58,8 @@ for anime in ranking_lists:
                               ", ".join(anime_ed_list)],
                              index=db.columns), ignore_index=True)
 
+
+
+
+# - - - Save file - - -
+db.to_csv('I_am_a_file_a_csv_file_tho.csv', index=False)

@@ -1,5 +1,6 @@
 # # # Objetivos:
 # # # Obtener data de MyAnimeList sobre anime de este año
+# # # Haremos una playlist de youtube basado en esto
 # - - - - - - - - - - Imports - - - - - - - - - -
 import re, time
 import datetime as dt
@@ -31,7 +32,7 @@ soup = BeautifulSoup(content, 'html.parser')
 
 ranking_lists = soup.find_all("tr", {"class": "ranking-list"})
 
-for anime in ranking_lists[0:10]:
+for anime in ranking_lists:
     # title, link
     anime_title = anime.find("div", {"class": "di-ib"}).getText()
     anime_link = anime.find("div", {"class": "di-ib"}).find("a")["href"]
@@ -62,4 +63,5 @@ for anime in ranking_lists[0:10]:
 
 
 # - - - Save file - - -
+web.close_current_tab()
 db.to_csv('I_am_a_file_a_csv_file_tho.csv', index=False)

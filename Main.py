@@ -8,12 +8,6 @@ from bs4 import BeautifulSoup
 from webbot import Browser
 from selenium import webdriver
 
-driver = webdriver.Chrome(r'C:\Program Files\Google\Chrome\Application\chromedriver.exe')
-
-option = webdriver.ChromeOptions()
-option.binary_location=r'C:\Program Files\Google\Chrome\Application\chrome.exe'
-
-
 #tao se la come doblada
 # - - - - - - - - - - Set-up - - - - - - - - - -
 time_start = time.time()
@@ -25,7 +19,7 @@ db = pd.DataFrame(columns=["anime_title",
                            "anime_link",
                            "anime_op_list",
                            "anime_ed_list"])
-link_base = 'https://myanimelist.net/'
+link_base = 'https://myanimelist.net/topanime.php?type=airing'
 
 
 # - - - - - - - - - - Webbot Navigation - - - - - - - - - -
@@ -35,12 +29,12 @@ time.sleep(time_load_search)
 content = web.get_page_source()
 soup = BeautifulSoup(content, 'html.parser')
 
-ranking_lists = soup.find_all("li", {"class": "ranking-unit"})
+ranking_lists = soup.find_all("tr", {"class": "ranking-list"})
 
-for anime in range(0,19):
+for anime in ranking_lists:
     # title, link
-    anime_title = ranking_lists[anime].find("a", {"class": "title"}).getText()
-    anime_link = ranking_lists[anime].find("a", {"class": "title"})["href"]
+    anime_title = anime.find("div", {"class": "di-ib"}).getText()
+    anime_link = anime.find("div", {"class": "di-ib"}).find("a")["href"]
     # - - - anime page
     web.go_to(anime_link)
     time.sleep(time_load_article)

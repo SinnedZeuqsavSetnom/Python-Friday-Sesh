@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from webbot import Browser
 from selenium import webdriver
 
-
+#tao se la come doblada
 # - - - - - - - - - - Set-up - - - - - - - - - -
 time_start = time.time()
 time_load_search = 3
@@ -30,19 +30,19 @@ time.sleep(time_load_search)
 content = web.get_page_source() #Saca la código fuente de la página
 soup = BeautifulSoup(content, 'html.parser') #Acá le defino a soup que lo que estoy viendo es un HTML
 
-ranking_lists = soup.find_all("tr", {"class": "ranking-list"})
+ranking_lists = soup.find_all("tr", {"class": "ranking-list"})#el "tr" y "class" lo saco de la pagina web y acá le digo que buscar. Para este caso lo que buscabamos era eso
 
 for anime in ranking_lists:
     # title, link
-    anime_title = anime.find("div", {"class": "di-ib"}).getText()
-    anime_link = anime.find("div", {"class": "di-ib"}).find("a")["href"]
+    anime_title = anime.find("div", {"class": "di-ib"}).getText() 
+    anime_link = anime.find("div", {"class": "di-ib"}).find("a")["href"] #href siempre es la fuente del link
     # - - - anime page
     web.go_to(anime_link)
     time.sleep(time_load_article)
     anime_content = web.get_page_source()
     anime_soup = BeautifulSoup(anime_content, 'html.parser')
-    anime_op_list = []
-    anime_ed_list = []
+    anime_op_list = [] #Formateo la lista
+    anime_ed_list = [] #Formateo la lista
     # opening/ending theme
     for song_list in anime_soup.find_all("div", {"class": "opnening"}):
         for song in song_list.find_all("span"):
@@ -57,10 +57,10 @@ for anime in ranking_lists:
                               anime_link,
                               ", ".join(anime_op_list),
                               ", ".join(anime_ed_list)],
-                             index=db.columns), ignore_index=True)
+                             index=db.columns), ignore_index=True) #Si te rayas con el orden de las cosas ¿? no te bote error
 
 
-
+#Tao se la come x2
 
 # - - - Save file - - -
 web.close_current_tab()
